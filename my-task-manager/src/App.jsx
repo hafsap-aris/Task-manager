@@ -1,12 +1,21 @@
 import './App.css'
-import TaskForm from './components/layouts/Task/TaskForm.jsx';
-  
-  function App() {
-    return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700">
-        <h1 className="text-3xl font-bold text-white mb-8 drop-shadow-lg">Task Manager</h1>
-        <TaskForm />
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Header from './components/layouts/Header.jsx';
+import Home from './pages/Home.jsx';
+import Tasks from "./pages/Tasks.jsx";
+
+function App() {
+  return (
+    <Router>
+      <Header />
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/tasks" element={<Tasks />} />
+        </Routes>
       </div>
-    )
-  }
+    </Router>
+  );
+}
 export default App;

@@ -1,25 +1,56 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-function TaskForm({ onAddTask }) {
+function TaskForm({ onAddTask, onEditTask, editingTask }) {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [dueDate, setDueDate] = useState("");
     const [priority, setPriority] = useState("medium");
 
+    // Populate form fields when editing a task
+    useEffect(() => {
+        if (editingTask) {
+            setTitle(editingTask.title || "");
+            setDescription(editingTask.description || "");
+            setDueDate(editingTask.dueDate || "");
+            setPriority(editingTask.priority || "medium");
+        } else {
+            // Reset form when not editing
+            setTitle("");
+            setDescription("");
+            setDueDate("");
+            setPriority("medium");
+        }
+    }, [editingTask]);
+
     function handleSubmit(e) {
         e.preventDefault();
-        const task = {
-            title,
-            description,
-            dueDate,
-            priority,
-            completed: false
-        };
-        if (onAddTask) {
-            onAddTask(task);
+
+        if (editingTask) {
+            const updatedFields = {
+                title,
+                description,
+                dueDate,
+                priority
+            };
+            if (onEditTask) {
+                onEditTask(editingTask.id, updatedFields);
+            }
+        } else {
+            const newTask = {
+                title,
+                description,
+                dueDate,
+                priority,
+                completed: false
+            };
+            if (onAddTask) {
+                onAddTask(newTask);
+            }
         }
-        console.log("Task submitted:", task);
         
+        console.log("Task submitted:", { title, description, dueDate, priority });
+        
+    
         setTitle("");
         setDescription("");
         setDueDate("");
@@ -93,7 +124,7 @@ function TaskForm({ onAddTask }) {
                 className="w-full bg-gradient-to-r from-purple-700 via-indigo-800 to-gray-900 text-white py-2 rounded-lg font-bold shadow-lg hover:scale-105 hover:from-purple-800 hover:via-indigo-900 hover:to-gray-800 transition-transform duration-150"
             >
                 <span className="inline-flex items-center gap-2">
-                    Create Task
+                    {editingTask ? "Update Task" : "Create Task"}
                 </span>
             </button>
         </form>
