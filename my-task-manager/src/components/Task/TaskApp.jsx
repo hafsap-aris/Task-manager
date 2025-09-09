@@ -1,10 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TaskForm from "./TaskForm.jsx";
 import TaskCard from "./TaskCard.jsx";
 
 function TaskApp() {
     const [tasks, setTasks] = useState([]);
     const [editingTask, setEditingTask] = useState(null);
+    const [isLoaded, setIsLoaded] = useState(false);
+
+    useEffect(() => {
+        const savedTasks = localStorage.getItem('taskManagerTasks');
+        if (savedTasks) {
+            try {
+                const parsedTasks = JSON.parse(savedTasks);
+                setTasks(parsedTasks);
+            } catch (error) {
+                console.error('Error parsing saved tasks:', error);
+                
+                setTasks([]);
+            }
+        }
+        setIsLoaded(true);
+    }, []);
+
+    useEffect(() => {
+        if (isLoaded) {
+            localStorage.setItem('taskManagerTasks', JSON.stringify(tasks));
+        }
+    }, [tasks, isLoaded]);
 
     function handleAddTask(task) {
         const newTask = {
