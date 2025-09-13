@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import TaskForm from "./TaskForm.jsx";
 import TaskCard from "./TaskCard.jsx";
+// import useLocalStorage from "../hooks/useLocalStorage.jsx";
 
 function TaskApp() {
     const [tasks, setTasks] = useState([]);
@@ -93,7 +94,7 @@ function TaskApp() {
                 <div className="mt-8 flex items-center justify-center">
                     <div className="w-full text-center border border-green-600 rounded-lg p-6 bg-green-900/30">
                         <p className="text-green-300 text-lg font-bold">Keep up the good work!</p>
-                        <p className="text-green-200 text-sm mt-1">All tasks are completed. You're on a roll! 🎉</p>
+                        <p className="text-green-200 text-sm mt-1">All tasks are completed!</p>
                     </div>
                 </div>
             )}

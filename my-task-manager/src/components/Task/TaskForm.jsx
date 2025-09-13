@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 function TaskForm({ onAddTask, onEditTask, editingTask }) {
     const [title, setTitle] = useState("");
+    const [error, setError] = useState("");
     const [description, setDescription] = useState("");
     const [dueDate, setDueDate] = useState("");
     const [priority, setPriority] = useState("medium");
@@ -24,6 +25,14 @@ function TaskForm({ onAddTask, onEditTask, editingTask }) {
 
     function handleSubmit(e) {
         e.preventDefault();
+
+    //error handling
+        if (title.trim() === ''){
+            setError("Task Title cannot be blank!!")
+            return;
+        } else{
+            setError('')
+        }
 
         if (editingTask) {
             const updatedFields = {
@@ -64,7 +73,7 @@ function TaskForm({ onAddTask, onEditTask, editingTask }) {
         >
             <div>
                 <label htmlFor="title" className="block font-semibold mb-2 text-gray-200">
-                    Title <span className="text-red-500">*</span>
+                    Title
                 </label>
                 <input
                     id="title"
@@ -73,10 +82,10 @@ function TaskForm({ onAddTask, onEditTask, editingTask }) {
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     placeholder="Enter task name"
-                    required
                     className="w-full bg-gray-800 text-gray-100 border border-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-600 transition"
                 />
             </div>
+            {error && <p style={{ color: 'red', marginTop: '5px' }}>{error}</p>}
             <div>
                 <label htmlFor="description" className="block font-semibold mb-2 text-gray-200">
                     Description

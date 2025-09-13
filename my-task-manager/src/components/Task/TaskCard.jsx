@@ -80,7 +80,7 @@ function TaskCard({ task, onToggleComplete, onDelete, onEdit }) {
                             className="px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-sm font-medium transition-colors duration-200"
                             title="Edit task"
                         >
-                            ✏️ Edit
+                        Edit
                         </button>
                         
                         <button
