@@ -1,7 +1,7 @@
 import React, { useState} from "react";
 import TaskForm from "./TaskForm.jsx";
 import TaskCard from "./TaskCard.jsx";
-import useLocalStorage from "../hooks/useLocalStorage.js";
+import useLocalStorage from "../../hooks/useLocalStorage.js";
 
 function TaskApp() {
     const [tasks, setTasks] = useLocalStorage('tasks', []);
