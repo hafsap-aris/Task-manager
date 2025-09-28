@@ -1,10 +1,8 @@
 import React, { useState} from "react";
 import TaskForm from "./TaskForm.jsx";
 import TaskCard from "./TaskCard.jsx";
-import useLocalStorage from "../../hooks/useLocalStorage.js";
 
-function TaskApp() {
-    const [tasks, setTasks] = useLocalStorage('tasks', []);
+function TaskApp({ tasks, setTasks }) {
     const [editingTask, setEditingTask] = useState(null);
 
     function handleAddTask(task) {
@@ -48,9 +46,11 @@ function TaskApp() {
     const hasNoTasks = tasks.length === 0;
     const allTasksCompleted = tasks.length > 0 && tasks.every(task => task.completed);
 
+    const pendingTasks = tasks.filter(t => !t.completed);
+
     return (
-        <div className="w-full max-w-2xl mx-auto bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 p-8 rounded-xl shadow-2xl border border-gray-800">
-            <h1 className="text-3xl font-bold text-white mb-8 drop-shadow-lg text-center">Task Manager</h1>
+        <div className="w-full max-w-2xl mx-auto bg-emerald-900/30 backdrop-blur-sm p-8 rounded-2xl shadow-2xl border border-emerald-700">
+            
             <TaskForm 
                 onAddTask={handleAddTask} 
                 onEditTask={handleEditTask}
@@ -60,9 +60,9 @@ function TaskApp() {
             {/* Empty state message */}
             {hasNoTasks && (
                 <div className="mt-8 flex items-center justify-center">
-                    <div className="w-full text-center border border-dashed border-gray-600 rounded-lg p-6 bg-gray-800/60">
-                        <p className="text-gray-200 text-lg font-semibold">Start by adding your first task!</p>
-                        <p className="text-gray-400 text-sm mt-1">Use the form above to create something to work on.</p>
+                    <div className="w-full text-center border border-dashed border-emerald-700 rounded-lg p-6 bg-emerald-900/40">
+                        <p className="text-emerald-100 text-lg font-semibold">Start by adding your first task!</p>
+                        <p className="text-emerald-300 text-sm mt-1">Use the form above to create something to work on.</p>
                     </div>
                 </div>
             )}
@@ -70,16 +70,16 @@ function TaskApp() {
             {/* All complete message */}
             {allTasksCompleted && (
                 <div className="mt-8 flex items-center justify-center">
-                    <div className="w-full text-center border border-green-600 rounded-lg p-6 bg-green-900/30">
-                        <p className="text-green-300 text-lg font-bold">Keep up the good work!</p>
-                        <p className="text-green-200 text-sm mt-1">All tasks are completed!</p>
+                    <div className="w-full text-center border border-amber-500 rounded-lg p-6 bg-amber-900/20">
+                        <p className="text-amber-500 text-lg font-bold">All tasks completed!</p>
+                        <p className="text-amber-500 text-sm font-light">Keep up the Good Work!</p>
                     </div>
                 </div>
             )}
 
             {!hasNoTasks && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8">
-                    {tasks.map((task) => (
+                    {pendingTasks.map((task) => (
                         <TaskCard 
                             key={task.id} 
                             task={task}

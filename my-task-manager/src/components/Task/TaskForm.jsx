@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 
 function TaskForm({ onAddTask, onEditTask, editingTask }) {
     const [title, setTitle] = useState("");
-    const [error, setError] = useState("");
     const [description, setDescription] = useState("");
     const [dueDate, setDueDate] = useState("");
     const [priority, setPriority] = useState("medium");
@@ -25,14 +24,6 @@ function TaskForm({ onAddTask, onEditTask, editingTask }) {
 
     function handleSubmit(e) {
         e.preventDefault();
-
-    //error handling
-        if (title.trim() === ''){
-            setError("Task Title cannot be blank!!")
-            return;
-        } else{
-            setError('')
-        }
 
         if (editingTask) {
             const updatedFields = {
@@ -59,7 +50,6 @@ function TaskForm({ onAddTask, onEditTask, editingTask }) {
         
         console.log("Task submitted:", { title, description, dueDate, priority });
         
-    
         setTitle("");
         setDescription("");
         setDueDate("");
@@ -69,11 +59,11 @@ function TaskForm({ onAddTask, onEditTask, editingTask }) {
     return (
         <form
             onSubmit={handleSubmit}
-            className="w-full max-w-lg mx-auto bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 p-8 rounded-xl shadow-2xl space-y-6 border border-gray-800"
+            className="w-full max-w-lg mx-auto bg-emerald-900/30 backdrop-blur-sm p-8 rounded-2xl shadow-2xl space-y-6 border border-emerald-700"
         >
             <div>
-                <label htmlFor="title" className="block font-semibold mb-2 text-gray-200">
-                    Title
+                <label htmlFor="title" className="block font-semibold mb-2 text-emerald-100">
+                    Title <span className="text-rose-400">*</span>
                 </label>
                 <input
                     id="title"
@@ -82,12 +72,12 @@ function TaskForm({ onAddTask, onEditTask, editingTask }) {
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     placeholder="Enter task name"
-                    className="w-full bg-gray-800 text-gray-100 border border-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-600 transition"
+                    required
+                    className="w-full bg-slate-800 text-emerald-100 border border-emerald-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition"
                 />
             </div>
-            {error && <p style={{ color: 'red', marginTop: '5px' }}>{error}</p>}
             <div>
-                <label htmlFor="description" className="block font-semibold mb-2 text-gray-200">
+                <label htmlFor="description" className="block font-semibold mb-2 text-emerald-100">
                     Description
                 </label>
                 <textarea
@@ -96,11 +86,11 @@ function TaskForm({ onAddTask, onEditTask, editingTask }) {
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     placeholder="Enter task description"
-                    className="w-full bg-gray-800 text-gray-100 border border-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-600 transition"
+                    className="w-full bg-slate-800 text-emerald-100 border border-emerald-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition"
                 />
             </div>
             <div>
-                <label htmlFor="dueDate" className="block font-semibold mb-2 text-gray-200">
+                <label htmlFor="dueDate" className="block font-semibold mb-2 text-emerald-100">
                     Due Date
                 </label>
                 <input
@@ -109,11 +99,11 @@ function TaskForm({ onAddTask, onEditTask, editingTask }) {
                     type="date"
                     value={dueDate}
                     onChange={(e) => setDueDate(e.target.value)}
-                    className="w-full bg-gray-800 text-gray-100 border border-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-600 transition"
+                    className="w-full bg-slate-800 text-emerald-100 border border-emerald-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition"
                 />
             </div>
             <div>
-                <label htmlFor="priority" className="block font-semibold mb-2 text-gray-200">
+                <label htmlFor="priority" className="block font-semibold mb-2 text-emerald-100">
                     Priority
                 </label>
                 <select
@@ -121,16 +111,16 @@ function TaskForm({ onAddTask, onEditTask, editingTask }) {
                     name="priority"
                     value={priority}
                     onChange={(e) => setPriority(e.target.value)}
-                    className="w-full bg-gray-800 text-gray-100 border border-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-600 transition"
+                    className="w-full bg-slate-800 text-emerald-100 border border-emerald-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition"
                 >
-                    <option value="low" className="bg-gray-800 text-gray-100">Low</option>
-                    <option value="medium" className="bg-gray-800 text-gray-100">Medium</option>
-                    <option value="high" className="bg-gray-800 text-gray-100">High</option>
+                    <option value="low" className="bg-slate-800 text-emerald-100">Low</option>
+                    <option value="medium" className="bg-slate-800 text-emerald-100">Medium</option>
+                    <option value="high" className="bg-slate-800 text-emerald-100">High</option>
                 </select>
             </div>
             <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-purple-700 via-indigo-800 to-gray-900 text-white py-2 rounded-lg font-bold shadow-lg hover:scale-105 hover:from-purple-800 hover:via-indigo-900 hover:to-gray-800 transition-transform duration-150"
+                className="w-full bg-gradient-to-r from-emerald-700 via-teal-700 to-slate-800 text-white py-3 rounded-lg font-bold shadow-lg hover:scale-105 hover:from-emerald-800 hover:via-teal-800 hover:to-slate-700 transition-all duration-200"
             >
                 <span className="inline-flex items-center gap-2">
                     {editingTask ? "Update Task" : "Create Task"}

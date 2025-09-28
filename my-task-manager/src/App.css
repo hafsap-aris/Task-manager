@@ -1,1 +1,19 @@
 @import "tailwindcss";
+
+/* Subtle Islamic geometric background */
+.islamic-bg {
+  position: relative;
+}
+.islamic-bg::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    radial-gradient(ellipse at 25% 25%, rgba(16, 185, 129, 0.05) 0 40%, transparent 41%),
+    radial-gradient(ellipse at 75% 75%, rgba(245, 158, 11, 0.05) 0 40%, transparent 41%),
+    repeating-conic-gradient(from 0deg, rgba(4, 120, 87, 0.05) 0 15deg, transparent 15deg 30deg);
+  background-size: 200px 200px, 220px 220px, 80px 80px;
+  background-position: 0 0, 40px 60px, 0 0;
+  pointer-events: none;
+}

@@ -1,10 +1,10 @@
 import React from "react";
 import TaskApp from "../components/Task/TaskApp.jsx";
 
-const Tasks = () => {
+const Tasks = ({ tasks, setTasks }) => {
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 px-4 py-8">
-            <TaskApp />
+        <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-emerald-950 via-teal-900 to-slate-900 px-4 py-8 islamic-bg">
+            <TaskApp tasks={tasks} setTasks={setTasks} />
         </div>
     );
 };

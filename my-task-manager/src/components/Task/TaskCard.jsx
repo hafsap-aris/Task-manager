@@ -1,6 +1,6 @@
 import React from "react";
 
-function TaskCard({ task, onToggleComplete, onDelete, onEdit }) {
+function TaskCard({ task, onToggleComplete = () => {}, onDelete = () => {}, onEdit = () => {} }) {
     const { id, title, description, dueDate, priority, completed } = task;
 
     function getPriorityColor(priority) {
