@@ -5,8 +5,7 @@ function TaskForm({ onAddTask, onEditTask, editingTask }) {
     const [description, setDescription] = useState("");
     const [dueDate, setDueDate] = useState("");
     const [priority, setPriority] = useState("medium");
-
-    // Populate form fields when editing a task
+    const [error, setError] = useState("");
     useEffect(() => {
         if (editingTask) {
             setTitle(editingTask.title || "");
@@ -14,7 +13,6 @@ function TaskForm({ onAddTask, onEditTask, editingTask }) {
             setDueDate(editingTask.dueDate || "");
             setPriority(editingTask.priority || "medium");
         } else {
-            // Reset form when not editing
             setTitle("");
             setDescription("");
             setDueDate("");
@@ -25,6 +23,10 @@ function TaskForm({ onAddTask, onEditTask, editingTask }) {
     function handleSubmit(e) {
         e.preventDefault();
 
+        if (!title.trim()) {
+          setError("Task Title Cannot be Empty!!");
+            return;
+        }
         if (editingTask) {
             const updatedFields = {
                 title,
@@ -63,18 +65,21 @@ function TaskForm({ onAddTask, onEditTask, editingTask }) {
         >
             <div>
                 <label htmlFor="title" className="block font-semibold mb-2 text-emerald-100">
-                    Title <span className="text-rose-400">*</span>
+                    Title
                 </label>
                 <input
                     id="title"
                     name="title"
                     type="text"
                     value={title}
-                    onChange={(e) => setTitle(e.target.value)}
+                    onChange={(e) => {
+                        setTitle(e.target.value);
+                        if (error) setError("");
+                    }}
                     placeholder="Enter task name"
-                    required
                     className="w-full bg-slate-800 text-emerald-100 border border-emerald-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition"
                 />
+                {error && <p className="text-red-400  mt-2 text-sm">{error}</p>}
             </div>
             <div>
                 <label htmlFor="description" className="block font-semibold mb-2 text-emerald-100">

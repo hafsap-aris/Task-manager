@@ -15,7 +15,7 @@ function CompletedTasks({ tasks, setTasks }) {
   const handleStartEdit = () => {};
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen px-4 py-8 bg-gradient-to-br from-emerald-950 via-teal-900 to-slate-900 islamic-bg">
+    <div className="flex flex-col items-center justify-center min-h-screen px-4 py-8 bg-gradient-to-br from-emerald-950 via-teal-900 to-slate-900">
       <h2 className="text-3xl font-bold text-amber-300 mb-8 drop-shadow-lg">Completed Tasks</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 w-full max-w-3xl">
         {completed.length > 0 ? (

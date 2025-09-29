@@ -15,7 +15,7 @@ function Home() {
   return (
     <div className="flex flex-col items-center justify-center min-h-[80vh] text-center px-6">
       <h1 className="text-4xl font-bold text-white mb-8 drop-shadow-lg">
-        Welcome to Task Manager
+        Welcome to My Islamic To-Do 
       </h1>
       <div className="w-full max-w-4xl mb-8">
         <div className="bg-gradient-to-br from-emerald-900/80 via-emerald-800/60 to-emerald-700/40 backdrop-blur-sm border border-emerald-600/30 rounded-2xl p-8 shadow-2xl">
